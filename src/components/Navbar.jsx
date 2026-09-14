@@ -33,7 +33,7 @@ const Navbar = ({ isOpen, onClose, receiptData, setWholeData }) => {
           setWholeData={setWholeData}
         />
       )}
-      <div className="fixed top-0 bottom-0 mobile:relative h-full bg-sidebar rounded-t-3xl rounded-br-3xl mobile:flex mobile:justify-between mobile:rounded-none">
+      <div className="fixed top-0 bottom-0 mobile:relative bg-sidebar rounded-t-3xl rounded-br-3xl mobile:flex mobile:justify-between mobile:rounded-none">
         <img src={logo} alt="app-logo" className="relative" />
         <div className="flex items-center justify-center mobile:w-32">
           <img

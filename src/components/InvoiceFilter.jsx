@@ -1,4 +1,3 @@
-import React from "react";
 import downIcon from "../assets/icon-arrow-down.svg";
 
 const InvoiceFilter = ({
@@ -11,7 +10,7 @@ const InvoiceFilter = ({
   return (
     <>
       <div
-        className="flex items-center text-base font-bold cursor-pointer relative mobile:text-sm"
+        className="flex items-center text-base font-bold cursor-pointer relative mobile:text-xs"
         onClick={toggleCheckbox}
       >
         Filter by Status
