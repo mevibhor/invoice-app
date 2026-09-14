@@ -1,4 +1,3 @@
-import React from "react";
 import Form from "./Form/Form";
 
 const FormDrawer = ({ isOpen, onClose, receiptData, setWholeData }) => {

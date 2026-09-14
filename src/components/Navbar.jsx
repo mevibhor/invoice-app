@@ -33,21 +33,39 @@ const Navbar = ({ isOpen, onClose, receiptData, setWholeData }) => {
           setWholeData={setWholeData}
         />
       )}
-      <div className="fixed top-0 bottom-0 mobile:relative bg-sidebar rounded-t-3xl rounded-br-3xl mobile:flex mobile:justify-between mobile:rounded-none">
-        <img src={logo} alt="app-logo" className="relative" />
-        <div className="flex items-center justify-center mobile:w-32">
+      <div
+        className="
+          relative md:fixed top-0 left-0 right-0 
+          md:top-0 md:left-0 md:bottom-0 md:right-auto
+          flex flex-row md:flex-col
+          bg-[#373B53] 
+          shadow-md md:rounded-b-none md:rounded-r-3xl
+          h-20 md:h-full
+          w-full md:w-20
+          px-6 md:px-0
+          justify-between items-center
+          z-50
+        "
+      >
+        <span className="flex items-center justify-center">
+          <img src={logo} alt="logo" className="h-16 md:h-20" />
+        </span>
+
+        <div className="flex flex-row md:flex-col items-center justify-center gap-4 md:mb-8">
           <img
             src={themeIcon}
-            alt="dark-mode"
-            className="cursor-pointer p-1 absolute bottom-32 left-9 flex justify-center mobile:relative mobile:bottom-0"
+            alt="theme-icon"
+            className="cursor-pointer h-4 w-4 md:h-6 md:w-6"
             onClick={toggleTheme}
           />
-          <div className="w-full h-px bg-slate-400 absolute bottom-24 mobile:hidden"></div>
+
+          {/* Divider: vertical on mobile, horizontal on desktop */}
+          <div className="h-16 w-px md:h-px md:w-16 bg-slate-500 dark:bg-slate-600 md:my-4"></div>
 
           <img
             src={profile}
             alt="profile"
-            className="rounded-full h-11 absolute bottom-6 left-7 mobile:hidden"
+            className="profile rounded-full h-8 w-8 md:h-12 md:w-12"
           />
         </div>
       </div>
