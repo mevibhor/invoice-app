@@ -1,62 +1,62 @@
-import React from "react";
-
 const BillFrom = ({ onChange, formData }) => {
+  const inputClass =
+    "w-full border border-slate-300 dark:border-slate-600 rounded-md p-3 bg-white dark:bg-[#1E2139] text-[#0C0E19] dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-[#7C5DFA] focus:ring-1 focus:ring-[#7C5DFA] transition-colors";
+  const labelClass = "text-slate-500 dark:text-slate-400 text-sm mb-2 block";
+
   return (
-    <div className="mt-16 mobile:w-[90%]">
-      <div className="flex items-center mb-6">
-        <h5 className="text-[#7C5DFA] font-semibold text-sm outline-none">
-          Bill from
-        </h5>
-      </div>
-      <div className="flex flex-col">
-        <label htmlFor="senderAddress" className="text-slate-500 text-sm mb-2">
+    <div className="w-full mt-8 md:mt-12">
+      <h5 className="text-[#7C5DFA] font-bold text-sm mb-6">Bill From</h5>
+
+      <div className="flex flex-col w-full mb-4">
+        <label htmlFor="senderStreet" className={labelClass}>
           Street Address
         </label>
         <input
           type="text"
           id="senderStreet"
           name="senderAddress.street"
-          className="border rounded-md p-2 mt-2 my-6 w-[34rem] focus:outline-none mobile:w-full"
+          className={inputClass}
           onChange={onChange}
           value={formData.senderAddress.street}
         />
       </div>
-      <div className="flex flex-row items-center justify-between">
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="flex flex-col">
-          <label htmlFor="senderCity" className="text-slate-500 text-sm">
+          <label htmlFor="senderCity" className={labelClass}>
             City
           </label>
           <input
             type="text"
             id="senderCity"
             name="senderAddress.city"
-            className="border rounded-md p-2 w-[8rem] my-2 focus:outline-none mobile:w-[6rem]"
+            className={inputClass}
             onChange={onChange}
             value={formData.senderAddress.city}
           />
         </div>
         <div className="flex flex-col">
-          <label htmlFor="senderPostCode" className="text-slate-500 text-sm">
+          <label htmlFor="senderPostCode" className={labelClass}>
             Post Code
           </label>
           <input
             type="text"
-            id="sendePostCode"
+            id="senderPostCode"
             name="senderAddress.postCode"
-            className="border rounded-md p-2 w-[8rem] my-2 focus:outline-none mobile:w-[6rem]"
+            className={inputClass}
             onChange={onChange}
             value={formData.senderAddress.postCode}
           />
         </div>
         <div className="flex flex-col">
-          <label htmlFor="senderCountry" className="text-slate-500 text-sm">
+          <label htmlFor="senderCountry" className={labelClass}>
             Country
           </label>
           <input
             type="text"
             id="senderCountry"
             name="senderAddress.country"
-            className="border rounded-md p-2 w-[12rem] my-2 focus:outline-none mobile:w-[7rem]"
+            className={inputClass}
             onChange={onChange}
             value={formData.senderAddress.country}
           />

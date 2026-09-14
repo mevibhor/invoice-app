@@ -7,9 +7,9 @@ export default {
       colors: {
         sidebar: "#373B53",
       },
-    },
-    screens: {
-      mobile: { max: "450px" },
+      screens: {
+        mobile: { max: "450px" },
+      },
     },
   },
   plugins: [],

@@ -33,7 +33,7 @@ const InvoiceDashboard = ({ handleNewInvoiceClick }) => {
     setSelectedFilters((prevFilters) =>
       prevFilters.includes(filterValue)
         ? prevFilters.filter((filter) => filter !== filterValue)
-        : [filterValue]
+        : [filterValue],
     );
   };
 
@@ -42,21 +42,24 @@ const InvoiceDashboard = ({ handleNewInvoiceClick }) => {
       selectedFilters.length === 0
         ? locallySavedInvoices
         : initialValue.filter((invoice) =>
-            selectedFilters.includes(invoice.status)
+            selectedFilters.includes(invoice.status),
           );
 
     setFilteredData(updatedData);
   }, [selectedFilters]);
 
   return (
-    <div className="dark:bg-[#141625] dark:text-white bg-[#F2F2F2] flex min-h-screen justify-center tracking-tighter mobile:text-sm mobile:w-full">
-      <div className="m-20 w-[45%] mobile:w-[90%] mobile:m-8">
-        <div className="flex justify-between mb-14 mobile:w-full">
+    <div className="dark:bg-[#141625] dark:text-white bg-[#F2F2F2] flex justify-center tracking-tighter mobile:text-sm min-h-screen">
+      <div className="m-20 w-[50%] mobile:w-[90%] mobile:m-4">
+        <div className="flex justify-between mb-14 items-center mobile:mb-6">
           <div>
-            <h1 className="text-4xl font-bold mobile:text-3xl">Invoices</h1>
-            <p className="text-base mobile:text-sm text-slate-500">
-              There are a total {filteredData.length} Invoices
-            </p>
+            <h1 className="text-4xl font-bold mobile:text-2xl">Invoices</h1>
+            <span className="lg:hidden text-base mobile:text-sm text-slate-500">
+              {filteredData.length} Invoices
+            </span>
+            <span className="hidden lg:inline-block text-base mobile:text-sm text-slate-500">
+              Total {filteredData.length} invoices
+            </span>
           </div>
           <div className="flex items-center justify-between mobile:justify-end w-72 mobile:gap-2">
             <InvoiceFilter
@@ -67,11 +70,16 @@ const InvoiceDashboard = ({ handleNewInvoiceClick }) => {
               statusColors={statusColors}
             />
             <button
-              className="bg-[#7C5DFA] text-white flex items-center rounded-r-3xl rounded-l-3xl text-base font-bold p-2 gap-3 mobile:text-sm mobile:gap-2 mobile:p-1"
+              className="bg-[#7C5DFA] text-white flex items-center rounded-r-3xl rounded-l-3xl text-base font-bold p-2 mobile:text-sm mobile:p-0.5"
               onClick={handleNewInvoiceClick}
             >
-              <img src={plusIcon} alt="plus" className="rounded-full " />
-              New Invoice
+              <img
+                src={plusIcon}
+                alt="+"
+                className="rounded-full mobile:w-7 mobile:h-7"
+              />
+              <span className="lg:hidden px-2">New</span>
+              <span className="hidden lg:inline-block px-2">New Invoice</span>
             </button>
           </div>
         </div>
