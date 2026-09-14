@@ -44,7 +44,6 @@ const Navbar = ({ isOpen, onClose, receiptData, setWholeData }) => {
           w-full md:w-20
           px-6 md:px-0
           justify-between items-center
-          z-50
         "
       >
         <span className="flex items-center justify-center">

@@ -22,26 +22,9 @@ const defaultValue = {
   clientName: "",
   clientEmail: "",
   status: "",
-  senderAddress: {
-    street: "",
-    city: "",
-    postCode: "",
-    country: "",
-  },
-  clientAddress: {
-    street: "",
-    city: "",
-    postCode: "",
-    country: "",
-  },
-  items: [
-    {
-      name: "",
-      quantity: 0.0,
-      price: 0.0,
-      total: 0.0,
-    },
-  ],
+  senderAddress: { street: "", city: "", postCode: "", country: "" },
+  clientAddress: { street: "", city: "", postCode: "", country: "" },
+  items: [{ name: "", quantity: "", price: "", total: "" }],
   total: 0.0,
 };
 
@@ -54,16 +37,10 @@ const Form = ({ onClose, receiptData, setWholeData }) => {
       const path = name.split(".");
       setFormData((prevData) => ({
         ...prevData,
-        [path[0]]: {
-          ...(prevData[path[0]] || {}),
-          [path[1]]: value,
-        },
+        [path[0]]: { ...(prevData[path[0]] || {}), [path[1]]: value },
       }));
     } else {
-      setFormData((prevData) => ({
-        ...prevData,
-        [name]: value,
-      }));
+      setFormData((prevData) => ({ ...prevData, [name]: value }));
     }
   };
 
@@ -73,19 +50,16 @@ const Form = ({ onClose, receiptData, setWholeData }) => {
     const createdAt = new Date().toLocaleDateString();
     const formDataWithID = { ...formData, id, createdAt, status };
     const existingInvoices = JSON.parse(localStorage.getItem("invoices")) || [];
-    const updatedInvoices = [formDataWithID, ...existingInvoices];
-    localStorage.setItem("invoices", JSON.stringify(updatedInvoices));
+    localStorage.setItem(
+      "invoices",
+      JSON.stringify([formDataWithID, ...existingInvoices]),
+    );
     setFormData(defaultValue);
     onClose();
   };
 
-  const handleSaveAndSend = (e) => {
-    handleAction(e, "pending");
-  };
-
-  const handleDraft = (e) => {
-    handleAction(e, "draft");
-  };
+  const handleSaveAndSend = (e) => handleAction(e, "pending");
+  const handleDraft = (e) => handleAction(e, "draft");
 
   const handleDiscard = (e) => {
     e.preventDefault();
@@ -95,76 +69,73 @@ const Form = ({ onClose, receiptData, setWholeData }) => {
 
   const handleSaveChanges = (e) => {
     e.preventDefault();
-    const { id } = formData;
-    const updatedInvoice = { ...formData };
-
     const existingInvoices = JSON.parse(localStorage.getItem("invoices")) || [];
-
-    const index = existingInvoices.findIndex((invoice) => invoice.id === id);
-
-    existingInvoices[index] = updatedInvoice;
+    const index = existingInvoices.findIndex(
+      (invoice) => invoice.id === formData.id,
+    );
+    existingInvoices[index] = formData;
     localStorage.setItem("invoices", JSON.stringify(existingInvoices));
     setWholeData(existingInvoices);
     onClose();
   };
 
   return (
-    <>
-      <form className="flex flex-col items-center h-full ml-8 mobile:text-xs mobile:ml-0">
-        <BillFrom onChange={handleChange} formData={formData} />
-        <BillTo onChange={handleChange} formData={formData} />
-        <AdditionalInfo onChange={handleChange} formData={formData} />
-        <FormItemList
-          formData={formData}
-          setFormData={setFormData}
-          onChange={handleChange}
-        />
+    <form className="flex flex-col w-full p-6 md:p-8 overflow-x-hidden">
+      <h1 className="text-2xl font-bold mb-8 text-[#0C0E19] dark:text-white">
+        {receiptData ? "Edit Invoice" : "New Invoice"}
+      </h1>
 
-        {!receiptData ? (
-          <div className="flex w-[34rem] justify-between py-8 mobile:w-[90%]">
-            <div className="flex items-center">
-              <button
-                className="text-[#7E88C3] font-semibold h-12 w-24 rounded-3xl bg-[#F2F2F2] text-sm"
-                onClick={handleDiscard}
-              >
-                Discard
-              </button>
-            </div>
-            <div className="flex items-center justify-between w-[17rem] ">
-              <button
-                onClick={handleDraft}
-                className="bg-[#373B53] w-32 h-12 rounded-3xl text-[#7E88C3] text-sm font-bold"
-              >
-                Save as Draft
-              </button>
-              <button
-                type="submit"
-                className="bg-[#7C5DFA] text-white h-12 w-32 rounded-3xl hover:bg-[#8e72fc] text-sm font-semibold"
-                onClick={handleSaveAndSend}
-              >
-                Save & Send
-              </button>
-            </div>
-          </div>
-        ) : (
-          <div className="flex w-[34rem] gap-4 justify-end items-center py-8 mobile:justify-center">
+      <BillFrom onChange={handleChange} formData={formData} />
+      <BillTo onChange={handleChange} formData={formData} />
+      <AdditionalInfo onChange={handleChange} formData={formData} />
+      <FormItemList
+        formData={formData}
+        setFormData={setFormData}
+        onChange={handleChange}
+      />
+
+      {!receiptData ? (
+        <div className="flex flex-col md:flex-row w-full justify-between py-8 gap-4">
+          <button
+            className="w-full md:w-auto text-[#7E88C3] font-semibold h-12 px-6 rounded-3xl bg-[#F2F2F2] dark:bg-[#252940] text-sm hover:bg-[#e5e5e5] dark:hover:bg-[#2f344f] transition-colors"
+            onClick={handleDiscard}
+          >
+            Discard
+          </button>
+          <div className="flex flex-col md:flex-row w-full md:w-auto gap-4">
             <button
-              onClick={handleDiscard}
-              className="bg-[#373B53] w-32 h-12 rounded-3xl text-[#7E88C3] text-sm font-bold"
+              onClick={handleDraft}
+              className="w-full md:w-auto bg-[#373B53] px-6 h-12 rounded-3xl text-[#7E88C3] text-sm font-bold hover:bg-[#2d3047] transition-colors"
             >
-              Cancel
+              Save as Draft
             </button>
             <button
               type="submit"
-              className="bg-[#7C5DFA] text-white h-12 w-32 rounded-3xl hover:bg-[#8e72fc] text-sm font-semibold"
-              onClick={handleSaveChanges}
+              className="w-full md:w-auto bg-[#7C5DFA] text-white px-6 h-12 rounded-3xl hover:bg-[#8e72fc] text-sm font-semibold transition-colors"
+              onClick={handleSaveAndSend}
             >
-              Save Changes
+              Save & Send
             </button>
           </div>
-        )}
-      </form>
-    </>
+        </div>
+      ) : (
+        <div className="flex flex-col md:flex-row w-full gap-4 justify-end items-center py-8">
+          <button
+            onClick={handleDiscard}
+            className="w-full md:w-auto bg-[#373B53] px-6 h-12 rounded-3xl text-[#7E88C3] text-sm font-bold hover:bg-[#2d3047] transition-colors"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            className="w-full md:w-auto bg-[#7C5DFA] text-white px-6 h-12 rounded-3xl hover:bg-[#8e72fc] text-sm font-semibold transition-colors"
+            onClick={handleSaveChanges}
+          >
+            Save Changes
+          </button>
+        </div>
+      )}
+    </form>
   );
 };
 

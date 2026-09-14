@@ -1,28 +1,22 @@
 import Form from "./Form/Form";
 
 const FormDrawer = ({ isOpen, onClose, receiptData, setWholeData }) => {
-  const backdropStyle = {
-    display: isOpen ? "block" : "none",
-    position: "fixed",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-  };
-
-  const drawerStyle = {
-    transform: isOpen ? "translateX(0)" : "translateX(-120%)",
-    overflowY: "auto",
-    transition: "transform 0.3s ease-in-out",
-  };
-
   return (
     <>
-      <div style={backdropStyle} onClick={onClose} />
       <div
-        className="fixed top-0 left-0 w-[40rem] h-full bg-white ease-in-out delay-200 duration-300 shadow-2xl ml-24 rounded-r-3xl mobile:ml-0 mobile:w-[26rem] z-10 dark:bg-[#141625]"
-        style={drawerStyle}
+        className={`fixed inset-0 bg-black/50 z-40 transition-opacity duration-300 ease-in-out ${
+          isOpen
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
+        }`}
+        onClick={onClose}
+      />
+
+      <div
+        className={`fixed top-0 left-0 h-full z-50 bg-white dark:bg-[#141625] shadow-2xl 
+          transition-transform duration-300 ease-in-out overflow-y-auto
+          w-full md:w-[500px] lg:w-[600px] lg:ml-20 rounded-r-3xl
+          ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
       >
         <Form
           onClose={onClose}
